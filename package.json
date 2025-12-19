@@ -8,6 +8,7 @@
     "lint": "eslint . --ext .js --fix",
     "format": "prettier --write .",
     "build": "run-s lint format",
+    "dev": "node src/dev.js",
     "start": "node src/index.js"
   },
   "repository": {
