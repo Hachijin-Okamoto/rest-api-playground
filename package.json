@@ -1,0 +1,31 @@
+{
+  "name": "rest-api-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js --fix",
+    "format": "prettier --write .",
+    "build": "run-s lint format",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-sub:Hachijin-Okamoto/rest-api-playground.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "npm-run-all": "^4.1.5"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.7.4"
+  }
+}
