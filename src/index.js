@@ -71,6 +71,9 @@ app.get("/users/:user_id", async (req, res) => {
   const { user_id } = req.params;
   const authHeader = req.headers.authorization;
 
+  console.log("--- New Request ---");
+  console.log("Authorization Header:", authHeader);
+
   if (!authHeader || !authHeader.startsWith("Basic ")) {
     return res.status(401).json({ message: "Authentication failed" });
   }
