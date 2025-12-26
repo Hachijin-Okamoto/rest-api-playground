@@ -8,3 +8,7 @@ export let users = [
 ];
 
 export const findUserById = (id) => users.find((u) => u.user_id === id);
+
+export const createUser = (user) => {
+  users.push(user);
+};
