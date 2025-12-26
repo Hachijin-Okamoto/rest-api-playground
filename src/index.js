@@ -1,6 +1,7 @@
 import { users, findUserById, createUser } from "./database.js";
 import express from "express";
 import { body, validationResult } from "express-validator";
+import { Buffer } from "buffer";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -80,6 +81,45 @@ app.post(
     }
   },
 );
+
+app.get("/users/:user_id", async (req, res) => {
+  const { user_id } = req.params;
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Basic ")) {
+    return res.status(401).json({ message: "Authentication failed" });
+  }
+
+  const base64Credentials = authHeader.split(" ")[1];
+  const credentials = Buffer.from(base64Credentials, "base64").toString(
+    "utf-8",
+  );
+  const [authUserId, authPassword] = credentials.split(":");
+
+  const authUser = findUserById(authUserId);
+  if (!authUser || authUser.password !== authPassword) {
+    return res.status(401).json({ message: "Authentication failed" });
+  }
+
+  const targetUser = findUserById(user_id);
+  if (!targetUser) {
+    return res.status(404).json({ message: "No user found" });
+  }
+
+  const responseUser = {
+    user_id: targetUser.user_id,
+    nickname: targetUser.nickname || targetUser.user_id,
+  };
+
+  if (targetUser.comment) {
+    responseUser.comment = targetUser.comment;
+  }
+
+  res.status(200).json({
+    message: "User details by user_id",
+    user: responseUser,
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
