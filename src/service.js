@@ -56,9 +56,11 @@ export const editUser = async (user_id, inputData) => {
   const { nickname, comment } = inputData;
   const updatedData = {};
 
+  // 空文字を指定すると初期値（ユーザIDに戻る）
   if (nickname !== undefined) {
     updatedData.nickname = nickname === "" ? user_id : nickname;
   }
+  // 空文字を指定するとクリアされる
   if (comment !== undefined) {
     updatedData.comment = comment === "" ? "" : comment;
   }
